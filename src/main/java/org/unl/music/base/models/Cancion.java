@@ -1,5 +1,7 @@
 package org.unl.music.base.models;
 
+import java.util.HashMap;
+
 public class Cancion {
     private Integer id;
     private String nombre;
@@ -64,5 +66,18 @@ public class Cancion {
     public void setTipo(TipoArchivoEnum tipo) {
         this.tipo = tipo;
     }
+
+       public HashMap<String, Object> toDict() {
+        HashMap<String, Object> diccionario = new HashMap<>();
+        diccionario.put("id", this.getId());
+        diccionario.put("nombre", this.getNombre());
+        diccionario.put("id_genero", this.getId_genero());
+        diccionario.put("duracion", this.getDuracion());
+        diccionario.put("url", this.getUrl());
+        diccionario.put("tipo", this.getTipo().toString());
+        diccionario.put("id_album", this.getId_album());
+        return diccionario;
+    }
+
 
 }

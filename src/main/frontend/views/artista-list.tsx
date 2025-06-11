@@ -132,9 +132,9 @@ const ArtistaEntryFormUpdate = function(props: ArtistaEntryFormPropsUpdate){//us
         nombre.value = '';
         nacionalidad.value = '';
         dialogOpened.value = false;
-        Notification.show('Artista creado', { duration: 5000, position: 'bottom-end', theme: 'success' });
+        Notification.show('Artista modificado', { duration: 5000, position: 'bottom-end', theme: 'success' });
       } else {
-        Notification.show('No se pudo crear, faltan datos', { duration: 5000, position: 'top-center', theme: 'error' });
+        Notification.show('No se pudo actualizar, faltan datos', { duration: 5000, position: 'top-center', theme: 'error' });
       }
 
     } catch (error) {
@@ -164,7 +164,7 @@ const ArtistaEntryFormUpdate = function(props: ArtistaEntryFormPropsUpdate){//us
               Candelar
             </Button>
             <Button onClick={createArtista} theme="primary">
-              Registrar
+              Actualizar
             </Button>
             
           </>
@@ -205,8 +205,15 @@ const ArtistaEntryFormUpdate = function(props: ArtistaEntryFormPropsUpdate){//us
 export default function ArtistaView() {
   
   const dataProvider = useDataProvider<Artista>({
-    list: () => ArtistaService.listAll(),
+    list: () => ArtistaService.listArtista(),
   });
+
+  // const callData = () =>{
+  //   console.log("Aqui esta el call data");
+  //   ArtistaService.listAll().then(function(data){
+  //     setItems(data);
+  //   });
+  // }
 
   function indexLink({ item}: { item: Artista }) {
    
@@ -239,7 +246,7 @@ export default function ArtistaView() {
       <Grid dataProvider={dataProvider.dataProvider}>
         <GridColumn  renderer={indexIndex} header="Nro" />
         <GridColumn path="nombres" header="Nombre del artista" />
-        <GridColumn path="nacionidad" header="Nacionidad">
+        <GridColumn path="nacionalidad" header="Nacionidad">
 
         </GridColumn>
         <GridColumn header="Acciones" renderer={indexLink}/>

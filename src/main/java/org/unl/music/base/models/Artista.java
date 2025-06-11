@@ -29,4 +29,10 @@ public class Artista {
         this.nacionidad = nacionidad;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return nombres;
+    }
+
 }

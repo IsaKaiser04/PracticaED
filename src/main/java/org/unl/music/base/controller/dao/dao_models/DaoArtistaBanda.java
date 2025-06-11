@@ -1,13 +1,7 @@
 package org.unl.music.base.controller.dao.dao_models;
 
-import org.unl.music.base.models.Artista_Banda;
-import org.unl.music.base.models.Banda;
-import org.unl.music.base.models.RolArtistaEnum;
-
-import java.util.Date;
-
 import org.unl.music.base.controller.dao.AdapterDao;
-
+import org.unl.music.base.models.Artista_Banda;
 public class DaoArtistaBanda extends AdapterDao<Artista_Banda> {
     private Artista_Banda obj;
 
@@ -49,6 +43,6 @@ public class DaoArtistaBanda extends AdapterDao<Artista_Banda> {
         }
     }
 
-   
+
 
 }

@@ -10,6 +10,8 @@ import org.unl.music.base.models.Album;
 import org.unl.music.base.models.Cancion;
 import org.unl.music.base.models.Genero;
 import org.unl.music.base.models.TipoArchivoEnum;
+import org.unl.music.base.controller.data_struct.list.LinkedList;
+import java.util.Arrays;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
@@ -115,4 +117,21 @@ public class CancionService {
         }        
         return lista;
     }
+
+    public List<HashMap> listAll() throws Exception{
+        return Arrays.asList(dc.all().toArray());
+    }
+
+    public List<HashMap> order(String attribute, Integer type) throws Exception {
+        return Arrays.asList(dc.orderByCancion(type, attribute).toArray());
+    }
+    public List<HashMap> search(String attribute, String text, Integer type) throws Exception {
+        LinkedList<HashMap<String, String>> lista = dc.search(attribute, text, type);
+        if(!lista.isEmpty())
+            return Arrays.asList(lista.toArray());
+        else
+            return new ArrayList<>();
+    }
+
+
 }
