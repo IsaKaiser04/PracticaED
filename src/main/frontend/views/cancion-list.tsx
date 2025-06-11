@@ -1,5 +1,5 @@
 import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { Button, ComboBox, DatePicker, Dialog, Grid, GridColumn, GridItemModel, NumberField, TextField, VerticalLayout } from '@vaadin/react-components';
+import { Button, ComboBox, NumberField ,DatePicker, Dialog, Grid, GridColumn, GridItemModel, GridSortColumn, HorizontalLayout, Icon, Select, TextArea, TextField, VerticalLayout } from '@vaadin/react-components';
 import { Notification } from '@vaadin/react-components/Notification';
 import { ArtistaService, CancionService, TaskService } from 'Frontend/generated/endpoints';
 import { useSignal } from '@vaadin/hilla-react-signals';
@@ -165,15 +165,21 @@ function ArtistaEntryForm(props: ArtistaEntryFormProps) {
   );
 }
 
+function link({ item }: { item: Artista }) {
+  return (
+      <span>
+      <Button>
+        Editar
+      </Button>
+    </span>
+  );
+}
+
 //GUARDAR ARTISTA
 const ArtistaEntryFormUpdate = function(props: ArtistaEntryFormPropsUpdate){//useCallback((props: ArtistaEntryFormPropsUpdate,{ item: art }: { item: Artista }) => {
   console.log(props);
   let pais = useSignal<String[]>([]);
-  useEffect(() => {
-    ArtistaService.listCountry().then(data =>
-        pais.value = data
-    );
-  }, []);
+
   const nombre = useSignal(props.arguments.nombres);
   const nacionalidad = useSignal(props.arguments.nacionalidad);
   const createArtista = async () => {
@@ -257,23 +263,69 @@ const ArtistaEntryFormUpdate = function(props: ArtistaEntryFormPropsUpdate){//us
 
 //LISTA DE ARTISTAS
 export default function CancionView() {
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    CancionService.listAll().then(function (data) {
+      //items.values = data;
+      setItems(data);
+    });
+  }, []);
 
-  const dataProvider = useDataProvider<Artista>({
-    list: () => CancionService.listCancion(),
-  });
+  const order = (event, columnId) => {
+    console.log(event);
+    const direction = event.detail.value;
+    // Custom logic based on the sorting direction
+    console.log(`Sort direction changed for column ${columnId} to ${direction}`);
 
-  function indexLink({ item}: { item: Artista }) {
-
-    return (
-        <span>
-        <ArtistaEntryFormUpdate arguments={item} onArtistaUpdated={dataProvider.refresh}>
-
-          </ArtistaEntryFormUpdate>
-      </span>
-    );
+    var dir = (direction == 'asc') ? 1 : 2;
+    CancionService.order(columnId, dir).then(function (data) {
+      setItems(data);
+    });
   }
+  /*const dataProvider = useDataProvider<Artista>({
+    list: () => CancionService.listCancion(),
+  });*/
 
-  function indexIndex({model}:{model:GridItemModel<Artista>}) {
+
+  const search = async () => {
+
+    try {
+      console.log(criterio.value+" "+texto.value);
+      CancionService.search(criterio.value, texto.value, 0).then(function (data) {
+        setItems(data);
+      });
+
+      criterio.value = '';
+      texto.value = '';
+
+      Notification.show('Busqueda realizada', { duration: 5000, position: 'bottom-end', theme: 'success' });
+
+
+    } catch (error) {
+      console.log(error);
+      handleError(error);
+    }
+  };
+
+  const criterio = useSignal('');
+  const texto = useSignal('');
+  const itemSelect = [
+    {
+      label: 'Genero',
+      value: 'genero',
+    },
+    {
+      label: 'Album',
+      value: 'album',
+    },
+    {
+      label: 'Nombre',
+      value: 'nombre'
+
+    }
+  ];
+
+  function index({model}:{model:GridItemModel<Artista>}) {
     return (
         <span>
         {model.index + 1}
@@ -285,20 +337,43 @@ export default function CancionView() {
 
       <main className="w-full h-full flex flex-col box-border gap-s p-m">
 
-        <ViewToolbar title="Lista de artista">
+        <ViewToolbar title="Canciones">
           <Group>
-            <ArtistaEntryForm onArtistaCreated={dataProvider.refresh}/>
+            <ArtistaEntryForm />
           </Group>
         </ViewToolbar>
-        <Grid dataProvider={dataProvider.dataProvider}>
-          <GridColumn  renderer={indexIndex} header="Nro" />
-          <GridColumn path="nombre" header="Cancion" />
-          <GridColumn path="id_genero" header="Genero"/>
-          <GridColumn path="url" header="Link"/>
-          <GridColumn path="duracio" header="Duracion"/>
-          <GridColumn path="id_album" header="Album"></GridColumn>
+        <HorizontalLayout theme="spacing">
+          <Select items={itemSelect}
+                  value={criterio.value}
+                  onValueChanged={(evt) => (criterio.value = evt.detail.value)}
+                  placeholder="Selecione un criterio">
 
-          <GridColumn header="Acciones" renderer={indexLink}/>
+
+          </Select>
+
+          <TextField
+              placeholder="Search"
+              style={{ width: '50%' }}
+              value={texto.value}
+              onValueChanged={(evt) => (texto.value = evt.detail.value)}
+          >
+            <Icon slot="prefix" icon="vaadin:search" />
+          </TextField>
+          <Button onClick={search} theme="primary">
+            BUSCAR
+          </Button>
+        </HorizontalLayout>
+        <Grid items={items}>
+          <GridColumn header="Nro" renderer={index} />
+          <GridSortColumn path="nombre" header="Nombre" onDirectionChanged={(e) => order(e, "nombre")} />
+          <GridSortColumn path="genero" header="Genero" onDirectionChanged={(e) => order(e, "genero")} />
+          <GridSortColumn path="url" header="URL" onDirectionChanged={(e) => order(e, "url")} />
+          <GridSortColumn path="album" header="Album" onDirectionChanged={(e) => order(e, "album")} />
+          <GridSortColumn path="duracion" header="Duracion" onDirectionChanged={(e) => order(e, "duracion")} />
+          <GridSortColumn path="tipo" header="Tipo" onDirectionChanged={(e) => order(e, "tipo")} />
+
+
+          <GridColumn header="Acciones" renderer={link} />
         </Grid>
       </main>
   );

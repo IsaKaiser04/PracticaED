@@ -123,7 +123,7 @@ public class CancionService {
     }
 
     public List<HashMap> order(String attribute, Integer type) throws Exception {
-        return Arrays.asList(dc.orderByCancion(type, attribute).toArray());
+        return Arrays.asList(dc.orderQuickCancion(type, attribute).toArray());
     }
     public List<HashMap> search(String attribute, String text, Integer type) throws Exception {
         LinkedList<HashMap<String, String>> lista = dc.search(attribute, text, type);
