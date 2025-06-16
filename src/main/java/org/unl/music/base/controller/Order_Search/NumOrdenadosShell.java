@@ -7,7 +7,6 @@ import org.unl.music.base.controller.data_struct.list.LinkedList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 
 public class NumOrdenadosShell {
         LinkedList<Integer> numeros = new LinkedList<>();

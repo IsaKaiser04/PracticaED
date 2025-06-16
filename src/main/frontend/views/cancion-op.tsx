@@ -14,11 +14,11 @@ import Banda from "Frontend/generated/org/unl/music/base/models/Banda";
 import {updateCancion} from "Frontend/generated/CancionService";
 
 export const config: ViewConfig = {
-  title: 'Cancion',
+  title: 'CancionOP',
   menu: {
     icon: 'vaadin:music',
     order: 1,
-    title: 'Cancion',
+    title: 'CancionOP',
   },
 };
 
@@ -361,10 +361,9 @@ export default function CancionListView() {
   }
 
   const search = async () => {
-
     try {
-      console.log(criterio.value+" "+texto.value);
-      CancionService.search(criterio.value, texto.value, 0).then(function (data) {
+      console.log(criterio.value + " " + texto.value);
+      CancionService.searchOp(criterio.value, texto.value, 0).then(function (data) {
         setItems(data);
       });
 
@@ -373,12 +372,12 @@ export default function CancionListView() {
 
       Notification.show('Busqueda realizada', { duration: 5000, position: 'bottom-end', theme: 'success' });
 
-
     } catch (error) {
       console.log(error);
       handleError(error);
     }
   };
+
 
   const criterio = useSignal('');
   const texto = useSignal('');

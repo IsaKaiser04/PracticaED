@@ -132,6 +132,13 @@ public class CancionService {
         else
             return new ArrayList<>();
     }
-
+/// //////////////////////////////////////SEARCH 2 /////////////////////////////////////////////////////////
+    public List<HashMap> searchOp(String attribute, String text, Integer type) throws Exception {
+        LinkedList<HashMap<String, String>> lista = dc.searchOptimized(attribute, text, type);
+        if(!lista.isEmpty())
+            return Arrays.asList(lista.toArray());
+        else
+            return new ArrayList<>();
+    }
 
 }

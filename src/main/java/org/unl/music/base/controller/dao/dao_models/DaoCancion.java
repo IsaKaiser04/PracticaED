@@ -227,6 +227,51 @@ public class DaoCancion extends AdapterDao<Cancion> {
         }
         return resp;
     }
+    ////////////////////////////SEARCH 2////////////////////////////////////////////////////////////
+    public LinkedList<HashMap<String, String>> searchOptimized(String attribute, String text, Integer type) throws Exception {
+        // 1. Ordenamos primero antes de buscar
+        LinkedList<HashMap<String, String>> listaOrdenada = orderQuickCancion(Utiles.ASCENDENTE, attribute);
+        LinkedList<HashMap<String, String>> resp = new LinkedList<>();
+
+        if (!listaOrdenada.isEmpty()) {
+            HashMap<String, String>[] arr = listaOrdenada.toArray();
+
+            // 2. Buscamos el punto de inicio aproximado con binaryLineal
+            Integer startPos = bynaryLineal(arr, attribute, text);
+            int startIndex = Math.abs(startPos);
+
+            // 3. Según el signo, buscamos hacia adelante o hacia atrás
+            if (startPos >= 0) {
+                // Buscar hacia la derecha
+                for (int i = startIndex; i < arr.length; i++) {
+                    if (coincide(arr[i], attribute, text, type)) {
+                        resp.add(arr[i]);
+                    }
+                }
+            } else {
+                // Buscar hacia la izquierda
+                for (int i = startIndex; i >= 0; i--) {
+                    if (coincide(arr[i], attribute, text, type)) {
+                        resp.add(arr[i]);
+                    }
+                }
+            }
+        }
+        return resp;
+    }
+
+    private boolean coincide(HashMap<String, String> m, String attribute, String text, Integer type) {
+        String value = m.get(attribute).toString().toLowerCase();
+        text = text.toLowerCase();
+
+        switch (type) {
+            case 1: return value.startsWith(text);
+            case 2: return value.endsWith(text);
+            default: return value.contains(text);
+        }
+    }
+
+
     ////////////////////////////////////////////////BUSQUEDA BINARIA///////////////////////////////////////////////////////
     private Integer busquedaBinaria(HashMap<String, String>[] array, String attribute, String text, Integer type) {
         int left = 0;
