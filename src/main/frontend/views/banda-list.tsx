@@ -10,6 +10,7 @@ import { useDataProvider } from '@vaadin/hilla-react-crud';
 import Banda from 'Frontend/generated/org/unl/music/base/models/Banda';
 import { BandaService } from 'Frontend/generated/endpoints';
 
+
 export const config: ViewConfig = {
   title: 'Banda',
   menu: {
@@ -121,6 +122,7 @@ function BandaEntryForm(props: BandaEntryFormProps) {
     </>
   );
 }
+
 
 //UPDATE BANDA
 function BandaEntryFormUpdate(props: BandaEntryFormUpdateProps) {

@@ -114,12 +114,7 @@ function ArtistaEntryForm(props: ArtistaEntryFormProps) {
 //ACTUALIZAR ARTISTA
 const ArtistaEntryFormUpdate = function(props: ArtistaEntryFormPropsUpdate){//useCallback((props: ArtistaEntryFormPropsUpdate,{ item: art }: { item: Artista }) => {
   console.log(props);
-  let pais = useSignal<String[]>([]);
-  useEffect(() => {
-    ArtistaService.listCountry().then(data =>
-      pais.value = data
-    );
-  }, []);
+
   const nombre = useSignal(props.arguments.nombres);
   const nacionalidad = useSignal(props.arguments.nacionalidad);
   const createArtista = async () => {
