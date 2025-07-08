@@ -1,7 +1,4 @@
-package org.unl.music.base.controller.Practica4;
-
-import org.unl.music.base.controller.Practica4.LaberintoResolve;
-import org.unl.music.base.controller.Practica4.Prim2;
+package org.unl.music.base.controller.PracticaU3;
 
 import javax.swing.*;
 import java.awt.*;

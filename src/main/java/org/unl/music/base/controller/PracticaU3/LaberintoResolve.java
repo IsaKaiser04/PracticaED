@@ -1,4 +1,4 @@
-package org.unl.music.base.controller.Practica4;
+package org.unl.music.base.controller.PracticaU3;
 
 import org.unl.music.base.controller.data_struct.graphs.UndirectedLabelGraph;
 
