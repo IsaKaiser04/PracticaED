@@ -1,14 +1,23 @@
-import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { Button, DatePicker, Dialog, Grid, GridColumn, GridItemModel, TextArea, TextField, VerticalLayout } from '@vaadin/react-components';
-import { Notification } from '@vaadin/react-components/Notification';
+import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
+import {
+    Button,
+    DatePicker,
+    Dialog,
+    Grid,
+    GridColumn,
+    GridItemModel,
+    TextField,
+    VerticalLayout
+} from '@vaadin/react-components';
+import {Notification} from '@vaadin/react-components/Notification';
 
-import { useSignal } from '@vaadin/hilla-react-signals';
+import {useSignal} from '@vaadin/hilla-react-signals';
 import handleError from 'Frontend/views/_ErrorHandler';
-import { Group, ViewToolbar } from 'Frontend/components/ViewToolbar';
+import {Group, ViewToolbar} from 'Frontend/components/ViewToolbar';
 
-import { useDataProvider } from '@vaadin/hilla-react-crud';
+import {useDataProvider} from '@vaadin/hilla-react-crud';
 import Banda from 'Frontend/generated/org/unl/music/base/models/Banda';
-import { BandaService } from 'Frontend/generated/endpoints';
+import {BandaService} from 'Frontend/generated/endpoints';
 
 
 export const config: ViewConfig = {

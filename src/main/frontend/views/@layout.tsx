@@ -1,17 +1,17 @@
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import {Outlet, useLocation, useNavigate} from 'react-router';
 import {
-  AppLayout,
-  Avatar,
-  Icon,
-  MenuBar,
-  MenuBarItemSelectedEvent,
-  ProgressBar,
-  Scroller,
-  SideNav,
-  SideNavItem,
+    AppLayout,
+    Avatar,
+    Icon,
+    MenuBar,
+    MenuBarItemSelectedEvent,
+    ProgressBar,
+    Scroller,
+    SideNav,
+    SideNavItem,
 } from '@vaadin/react-components';
-import { Suspense } from 'react';
-import { createMenuItems } from '@vaadin/hilla-file-router/runtime.js';
+import {Suspense} from 'react';
+import {createMenuItems} from '@vaadin/hilla-file-router/runtime.js';
 
 function Header() {
   // TODO Replace with real application logo and name

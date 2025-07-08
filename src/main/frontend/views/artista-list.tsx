@@ -1,14 +1,23 @@
-import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { Button, ComboBox, DatePicker, Dialog, Grid, GridColumn, GridItemModel, TextField, VerticalLayout } from '@vaadin/react-components';
-import { Notification } from '@vaadin/react-components/Notification';
-import { ArtistaService, TaskService } from 'Frontend/generated/endpoints';
-import { useSignal } from '@vaadin/hilla-react-signals';
+import {ViewConfig} from '@vaadin/hilla-file-router/types.js';
+import {
+    Button,
+    ComboBox,
+    Dialog,
+    Grid,
+    GridColumn,
+    GridItemModel,
+    TextField,
+    VerticalLayout
+} from '@vaadin/react-components';
+import {Notification} from '@vaadin/react-components/Notification';
+import {ArtistaService} from 'Frontend/generated/endpoints';
+import {useSignal} from '@vaadin/hilla-react-signals';
 import handleError from 'Frontend/views/_ErrorHandler';
-import { Group, ViewToolbar } from 'Frontend/components/ViewToolbar';
+import {Group, ViewToolbar} from 'Frontend/components/ViewToolbar';
 
-import { useDataProvider } from '@vaadin/hilla-react-crud';
+import {useDataProvider} from '@vaadin/hilla-react-crud';
 import Artista from 'Frontend/generated/org/unl/music/base/models/Artista';
-import { useCallback, useEffect, useState } from 'react';
+import {useEffect} from 'react';
 
 export const config: ViewConfig = {
   title: 'Artistas',

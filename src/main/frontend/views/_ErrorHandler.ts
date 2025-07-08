@@ -1,4 +1,4 @@
-import { Notification } from '@vaadin/react-components/Notification';
+import {Notification} from '@vaadin/react-components/Notification';
 
 export default function handleError(error: any) {
   console.error('An unexpected error occurred', error);

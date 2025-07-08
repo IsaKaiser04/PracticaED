@@ -49,7 +49,7 @@ public class DaoBanda extends AdapterDao<Banda> {
     public static void main(String[] args) {
         DaoBanda da = new DaoBanda();
         da.getObj().setId(da.listAll().getLength() + 1);
-        da.getObj().setNombre("Molotov");
+        da.getObj().setNombre("Pxnda");
         da.getObj().setFecha(new Date());
         if (da.save())
             System.out.println("GUARDADO");

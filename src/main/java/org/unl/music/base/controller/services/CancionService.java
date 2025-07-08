@@ -125,20 +125,6 @@ public class CancionService {
     public List<HashMap> order(String attribute, Integer type) throws Exception {
         return Arrays.asList(dc.orderQuickCancion(type, attribute).toArray());
     }
-    public List<HashMap> search(String attribute, String text, Integer type) throws Exception {
-        LinkedList<HashMap<String, String>> lista = dc.search(attribute, text, type);
-        if(!lista.isEmpty())
-            return Arrays.asList(lista.toArray());
-        else
-            return new ArrayList<>();
-    }
-/// //////////////////////////////////////SEARCH 2 /////////////////////////////////////////////////////////
-    public List<HashMap> searchOp(String attribute, String text, Integer type) throws Exception {
-        LinkedList<HashMap<String, String>> lista = dc.searchOptimized(attribute, text, type);
-        if(!lista.isEmpty())
-            return Arrays.asList(lista.toArray());
-        else
-            return new ArrayList<>();
-    }
+
 
 }
